@@ -1,0 +1,27 @@
+package com.hms.registration;
+
+import static org.testng.Assert.assertEquals;
+
+import org.hms.registration.page.HMSEmergencyRegistration;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.hms.login.page.HMSLoginPage;
+import com.util.TestBaseClass;
+
+Run All
+public class TestEmergencyRegistration extends TestBaseClass{ 
+	
+	@Test
+	Run | Debug
+	public void testEmergencyRegistration() {
+		HMSLoginPage page = new HMSLoginPage(driver);
+		page.hmsLogin("admin", "kosmik7");
+		HMSEmergencyRegistration hmsApplication = new HMSEmergencyRegistration(driver);
+		hmsApplication.emergencyRegistration();
+	}
+}

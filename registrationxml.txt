@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+Binding to grammer/schema...
+<suite name="HMSSuiteRegistration">
+	<test name="RegistrationTest">
+		<classes>
+			<class name="com.hms.registration.TestEmergencyRegistration" />
+		</classes>
+	</test>
+</suite>

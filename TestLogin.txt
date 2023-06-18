@@ -1,0 +1,34 @@
+package com.login;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.hms.login.page.HMSLoginPage;
+import com.util.TestBaseClass;
+
+Run All
+public class TestLogin extends TestBaseClass {
+	
+
+	@Test(dataProvider = "testData")
+	//line 17 & 33 values should be similar 
+	Run | Debug
+	public void testLoginPositive(String user,String pwd) {
+		HMSLoginPage page = new HMSLoginPage(driver);
+		page.hmsLogin(user, pwd);
+		page.logout();
+	}
+
+	@DataProvider(name = "testData")
+	public Object[][] testData() {
+		Object[][] testData = { { "admin", "kosmik7" }, { "kosmik", "kosmik" } };
+		return testData;
+
+	}
+	
+}

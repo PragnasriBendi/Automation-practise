@@ -1,0 +1,96 @@
+package org.hms.registration.page;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
+
+public class HMSEmergencyRegistration {
+
+	WebDriver driver;
+	By registrationLink = By.linkText("Registration");
+	By emergencyRegistrationLink = By.linkText("Emergency Registration");
+	By patCategoryCombo = By.name("PATIENT_CAT");
+	By patTitleCombo = By.name("TITLE");
+	By patName = By.name("PNT_NAME");
+	By patMiddleName = By.name("MIDDLE_NAME");
+	By patLastName = By.name("LAST_NAME");
+	By patDOB = By.name("AGE");
+	By patAGE = By.name("DOB");
+	By gender = By.name("SEX");
+	By address = By.name("ADDRESS1");
+	By mobile = By.name("MOBILE_NO");
+	By patIdentityCombo = By.name("PAT_IDENTITY");
+	By patIdentityProof = By.name("PAT_IDENTITY_PROOF");
+	By bloodGroupCodeCombo = By.name("BLOOD_GRP_CODE");
+	By zipCode = By.name("ZIP");
+	By photoUpload = By.name("image");
+	By submit = By.name("submit");
+	
+	
+//	public HMSEmergencyRegistration(WebDriver localdriver) {
+//		driver = localdriver;
+//
+//	}
+	
+	public HMSEmergencyRegistration(WebDriver localdriver) {
+		driver = localdriver;
+
+	}
+
+	public void emergencyRegistration() {
+		driver.findElement(registrationLink).click();
+		driver.findElement(emergencyRegistrationLink).click();
+		Select patientCat = new Select(driver.findElement(patCategoryCombo));
+		patientCat.selectByVisibleText("Self");
+		Select title = new Select(driver.findElement(patTitleCombo));
+		title.selectByVisibleText("Ms.");
+		driver.findElement(patName).sendKeys("mahesh");
+		driver.findElement(patMiddleName).sendKeys("babu");
+		driver.findElement(patLastName).sendKeys("gopal");
+		driver.findElement(patDOB).sendKeys("23");
+		driver.findElement(patAGE).sendKeys("13-08-1998");
+		Select genderSelection = new Select(driver.findElement(gender));
+		genderSelection.selectByIndex(2);
+		Select maritalStatus = new Select(driver.findElement(By.name("MTRL_STATUS")));
+		maritalStatus.selectByVisibleText("Single");
+		Select Religion = new Select(driver.findElement(By.name("RELIGION")));
+		Religion.selectByValue("Hindu");
+		Select primaryLanguage = new Select(driver.findElement(By.name("PLANGUAGE")));
+		primaryLanguage.selectByVisibleText("English");
+		driver.findElement(address).sendKeys("visakhapatnam");
+		driver.findElement(mobile).sendKeys("8341530215");
+		driver.findElement(By.name("EMAIL_ID")).sendKeys("pragnasribendi@gmail.com");
+		Select country = new Select(driver.findElement(By.name("COUNTRY_CODE")));
+		country.selectByValue("India");
+		Select Relation = new Select(driver.findElement(By.name("RELATION")));
+		Relation.selectByValue("Brother");
+		driver.findElement(By.name("MOTHER_NAME")).sendKeys("sreedevi");
+		Select patientIdentifier = new Select(driver.findElement(patIdentityCombo));
+		patientIdentifier.selectByVisibleText("AAdhar Card");
+		driver.findElement(patIdentityProof).sendKeys("738978002902");
+		Select nationality = new Select(driver.findElement(By.name("NATIONALITY")));
+		nationality.selectByValue("Indian");
+		Select vip = new Select(driver.findElement(By.name("IS_MLC")));
+		vip.selectByVisibleText("No");
+		Select education = new Select(driver.findElement(By.name("EDUCATION")));
+		education.selectByValue("B.Tech");
+		Select occupation = new Select(driver.findElement(By.name("OCCUPATION")));
+		occupation.selectByValue("Employee");
+		Select bloodGroup = new Select(driver.findElement(bloodGroupCodeCombo));
+		bloodGroup.selectByVisibleText("A+");
+		Select citizenShip = new Select(driver.findElement(By.name("CITIZENSHIP")));
+		citizenShip.selectByValue("Indian");
+		Select seniorCitizen = new Select(driver.findElement(By.name("SC_PROOF")));
+		seniorCitizen.selectByVisibleText("No");
+
+		driver.findElement(By.name("ADDRESS2")).sendKeys("hyderabad");
+		driver.findElement(zipCode).sendKeys("530018");
+		driver.findElement( photoUpload ).sendKeys("C:\\Users\\ADMIN\\Pictures\\Screenshots\\Screenshot (831).png");
+
+		driver.findElement(submit).click();
+	}
+		
+}
+
