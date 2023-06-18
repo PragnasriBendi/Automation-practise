@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+Binding to grammer/schema...
+<suite name="HMSSuiteLogin">
+	<test name="LoginTests">
+		<classes>
+			<class name="com.login.TestLogin" />
+			<methods>
+				<include name = "testLoginPositive"></include>
+				<include name = "testLoginPositive1"></include>
+				<!--<excute name = "testLoginPositive2"></excute>-->
+			</methods>
+		</classes>
+	</test>
+</suite>
