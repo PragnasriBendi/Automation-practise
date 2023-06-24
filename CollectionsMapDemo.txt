@@ -1,0 +1,33 @@
+package com.corejava.collections;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class CollectionMapDemo {
+
+	public static void main(String[] args) {
+		
+		Map map = new HashMap();
+		map.put(123, "naresh");
+		map.put(124, "suresh");
+		map.put(125, "naresh1");
+		map.put(126, "pragnasri");
+		map.put(123, "bendi");
+		System.out.println(map);
+		
+		Set<Map.Entry> entries = map.entrySet();
+		for(Entry entry :entries) {
+			System.out.println(entry.getKey()+"--->");
+			System.out.println(entry.getValue());
+			System.out.println();
+			
+		}
+		
+		
+	}
+
+}
+
+
