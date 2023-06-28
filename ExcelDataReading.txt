@@ -1,0 +1,58 @@
+package com.exceldatareading;
+
+import java.io.FileInputStream;
+
+
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ExcelDataReading {
+
+	public static void main(String[] args)throws Exception {
+		
+//		FileInputStream fis = new FileInputStream("C:\\Users\\ADMIN\\Desktop\\logindata.xlsx");
+//		Workbook workbook = null;
+//		Sheet login_Positive = null;
+//		Row firstRow = null;
+//		workbook = new XSSFWorkbook(fis);
+//		login_Positive = workbook.getSheet("Loginpositive");
+//		firstRow = login_Positive.getRow(0);
+//		System.out.println(firstRow.getCell(0));
+//		System.out.println(firstRow.getCell(1));
+//		
+//		Row secondRow = login_Positive.getRow(1);
+//		System.out.println(secondRow.getCell(0));
+//		System.out.println(secondRow.getCell(1));
+//		workbook.close();
+		
+		ExcelDataReading excelDataReading = new ExcelDataReading();
+		excelDataReading.excelDataReading("C:\\Users\\ADMIN\\Desktop\\logindata.xlsx");
+		
+	}
+	
+	public void excelDataReading(String fileNameWithPath)throws Exception {
+		FileInputStream fis = new FileInputStream(fileNameWithPath);
+		Workbook workbook = null;
+		workbook = new XSSFWorkbook(fis);
+		
+		for (Sheet sheet : workbook) {
+			for (Row row : sheet) 
+			{
+				for (Cell cell : row)
+				{
+					System.out.print(cell.toString()+" ");
+				}
+				System.out.println();
+			}
+			System.out.println();
+			System.out.println();
+		}
+	
+		workbook.close();
+	}
+
+}
+
