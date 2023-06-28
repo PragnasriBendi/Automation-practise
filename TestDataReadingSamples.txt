@@ -1,0 +1,82 @@
+package com.util;
+
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class TestDataReadingSamples {
+
+	Map<String, List<Map<String, String>>> testCasesWithSamples = new LinkedHashMap<String, List<Map<String, String>>>();
+
+	public Map<String, List<Map<String, String>>> testDataReading(String excelPathWithFileName, String sheetName)
+			throws Exception {
+
+		Workbook book = null;
+
+		FileInputStream fis = new FileInputStream(excelPathWithFileName);
+		if (excelPathWithFileName.endsWith("xlsx")) {
+			book = new XSSFWorkbook(fis);
+
+		} else if (excelPathWithFileName.endsWith("xls")) {
+			book = new HSSFWorkbook(fis);
+
+		}
+
+		List<String> headerList = null;
+		List<String> dataList = null;
+		Map<String, String> sample = null;
+		List<Map<String, String>> testCaseWithSamples = null;
+		Sheet sheet = book.getSheet(sheetName);
+
+		for (Row row : sheet) {
+			testCaseWithSamples = new ArrayList<Map<String, String>>();
+
+			if (row.getCell(0).toString().startsWith("Header")) {
+				headerList = new ArrayList<>();
+				for (Cell cell : row) {
+					headerList.add(cell.toString());
+
+				}
+			} else {
+				dataList = new ArrayList<>();
+				for (Cell cell : row) {
+					dataList.add(cell.toString());
+				}
+				sample = new LinkedHashMap<String,String>();
+				for(int i=0;i<dataList.size();i++) {
+					sample.put(headerList.get(i), dataList.get(i));
+					
+				}
+				testCaseWithSamples.add(sample);
+				String testMethodName = dataList.get(0);
+				
+				if(testCasesWithSamples.get(testMethodName)==null) {
+					testCasesWithSamples.put(testMethodName, testCaseWithSamples);
+					
+				}
+
+			}
+		}
+
+		return testCasesWithSamples;
+
+	}
+	
+	public static void main(String[] args)throws Exception {
+		
+		TestDataReadingSamples testDataReadingSamples = new TestDataReadingSamples();
+		testDataReadingSamples.testDataReading("C:\\Users\\ADMIN\\Desktop\\logindata.xlsx", "Login");
+		System.out.println(testDataReadingSamples.testCasesWithSamples);
+		
+
+  }
+}
