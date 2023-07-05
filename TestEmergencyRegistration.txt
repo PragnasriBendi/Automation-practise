@@ -1,0 +1,77 @@
+package com.hms.registration;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+
+import org.hms.registration.page.HMSEmergencyRegistration;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.hms.login.page.HMSLoginPage;
+import com.util.TestBaseClass;
+import com.util.TestDataReadingSamples;
+
+Run All
+public class TestEmergencyRegistration extends TestBaseClass {
+	Map<String, List<Map<String, String>>> testcasesWithSamples;
+
+	@BeforeTest
+	public void luanchHMSApp() {
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\ADMIN\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe");
+		ChromeOptions chromeOptions = new ChromeOptions();
+		chromeOptions.addArguments("--remote-allow-origins=*");
+		driver = new ChromeDriver(chromeOptions);
+		driver.get("https://www.kosmiktechnologies.com/seleniumLiveProject/kosmik-hms/index.php");
+		driver.manage().window().maximize();
+		HMSLoginPage page = new HMSLoginPage(driver);
+		page.hmsLogin("admin", "kosmik7");
+	}
+
+	@BeforeClass
+	public void beforeClass() throws Exception {
+		TestDataReadingSamples testDataReadingSamples = new TestDataReadingSamples();
+		testcasesWithSamples = testDataReadingSamples.testDataReading("C:\\Users\\ADMIN\\Desktop\\logindata.xlsx",
+				"registration");
+	}
+
+	@Test
+	Run | Debug
+	public void testEmergencyRegistration(Map<String, String> sample, String expectedResult) {
+//		HMSLoginPage page = new HMSLoginPage(driver);
+//		page.hmsLogin("admin", "kosmik7");
+		HMSEmergencyRegistration hmsApplication = new HMSEmergencyRegistration(driver);
+		hmsApplication.emergencyRegistration(sample);
+	}
+
+	@DataProvider(name = "testData")
+	public Object[][] testData(Method method) {
+		String testMethodName = method.getName();
+		System.out.println("Runtime testMethodName" + testMethodName);
+
+		List<Map<String, String>> samples = testcasesWithSamples.get(testMethodName);
+		Object[][] objArr = null;
+
+		if (samples == null) {
+			objArr = new Object[0][0];
+		} else {
+			objArr = new Object[samples.size()][2];
+			Integer count = 0;
+			for (Map<String, String> sample : samples) {
+				objArr[0][0] = sample;
+				count++;
+				objArr[0][count] = sample.get("Expected Result");
+
+			}
+		}
+
+		return objArr;
+
+	}
+
+}
