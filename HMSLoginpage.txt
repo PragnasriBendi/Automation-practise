@@ -1,0 +1,37 @@
+package com.hms.login.page;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class HMSLoginPage {
+
+	WebDriver driver;
+
+	By username = By.name("username");
+	By password = By.name("password");
+	By submit = By.name("submit");
+	By logout = By.linkText("Logout");
+
+	
+
+	public HMSLoginPage(WebDriver localdriver) {
+		this.driver = localdriver;
+		
+	}
+
+	public String hmsLogin(String user, String pwd) {
+		String str = "";
+		driver.findElement(username).sendKeys(user);
+		driver.findElement(password).sendKeys(pwd);
+		driver.findElement(submit).click();
+		
+
+		str = driver.findElement(logout).getText();
+		return str;
+	}
+	
+	public void logout() {
+		driver.findElement(logout).click();
+	}
+	
+}

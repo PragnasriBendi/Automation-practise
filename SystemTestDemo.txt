@@ -1,0 +1,10 @@
+package com.corejava.collections;
+
+public class SystemTestDemo {
+
+	public static void main(String[] args) {
+		System.out.println(System.getProperty("user.dir"));
+
+	}
+
+}

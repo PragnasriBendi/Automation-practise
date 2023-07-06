@@ -1,0 +1,22 @@
+package com.corejava.collections;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+
+public class PropertiesDemo {
+
+	public static void main(String[] args)throws Exception {
+		
+		FileInputStream fis = new FileInputStream("C:\\Users\\ADMIN\\eclipse-workspace\\taf-hms\\src\\test\\resources\\properties\\application-test.properties");
+
+		Properties prop = new Properties();
+		prop.load(fis);
+		System.out.println(prop.getProperty("url"));
+		System.out.println(prop.getProperty("username"));
+		System.out.println(prop.getProperty("password"));
+		System.out.println(prop.getProperty("browser"));
+		System.out.println(prop.getProperty("testDataType"));
+		
+	}
+
+}
