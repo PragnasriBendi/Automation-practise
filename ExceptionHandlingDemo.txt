@@ -1,0 +1,30 @@
+package javaproject;
+
+public class ExceptionDemo {
+
+	public static void main(String[] args) {
+		try {
+			
+			int[] arr = new int[] {10,11,12};
+			System.out.println("testing1");
+			System.out.println(arr[3]);
+			}
+			catch(Exception e) {
+				System.out.println("exception in arrays");
+			}
+		finally {
+			System.out.println("closing the resources");
+			
+		}
+			System.out.println("testing2");
+			System.out.println("testing3");
+			
+			
+
+		}
+		
+		
+
+	}
+
+
