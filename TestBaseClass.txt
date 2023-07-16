@@ -1,0 +1,68 @@
+package com.util;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+
+public class TestBaseClass {
+
+	protected WebDriver driver;
+	Map<String, List<Map<String, String>>> testcasesWithSamples;
+	protected String testDataAbsolutePath;
+	public static final String testDataRelativePath = "\\src\\test\\resources\\testdata\\";
+	protected String testDataFileName;
+	protected String testDataSheetName;
+
+	public TestBaseClass() {
+		testDataAbsolutePath = System.getProperty("user.dir")+testDataRelativePath;
+
+	}
+
+	@AfterTest
+	public void closeBrowser() {
+		driver.quit();
+	}
+
+	@BeforeClass
+	public void beforeClass() throws Exception {
+		TestDataReadingSamples testDataReadingSamples = new TestDataReadingSamples();
+		testcasesWithSamples = testDataReadingSamples.testDataReading(testDataAbsolutePath+testDataFileName, testDataSheetName);
+		//testcasesWithSamples = testDataReadingSamples.testDataReading(testDataRelativePath+testDataFileName, testDataSheetName);
+	}
+
+	@DataProvider(name = "testData")
+	public Object[][] testData(Method method) {
+		String testMethodName = method.getName();
+		System.out.println("Runtime testMethodName" + testMethodName);
+
+		List<Map<String, String>> samples = testcasesWithSamples.get(testMethodName);
+		Object[][] objArr = null;
+
+		if (samples == null) {
+			objArr = new Object[0][0];
+		} else {
+			objArr = new Object[samples.size()][2];
+			Integer count = 0;
+			for (Map<String, String> sample : samples) {
+				objArr[0][0] = sample;
+				count++;
+				objArr[0][count] = sample.get("Expected Result");
+
+			}
+		}
+
+		return objArr;
+
+	}
+
+}

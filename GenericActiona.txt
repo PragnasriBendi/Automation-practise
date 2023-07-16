@@ -1,0 +1,38 @@
+package com.util.page;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class GenericActions {
+	
+	WebDriver driver;
+	
+	public GenericActions(WebDriver driver){
+		this.driver = driver;
+			
+	}
+	
+	public void waitForElementToLoadAndClickusingWebDriverWait(WebElement element) {
+		Wait<WebDriver> wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.click();	
+	}
+	
+	public void waitForElementToLoadAndSendKeysusingWebDriverWait(WebElement element,String text) {
+		Wait<WebDriver> wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.sendKeys(text);	
+	}
+	
+	public String waitForElementToLoadAndGetTextusingWebDriverWait(WebElement element) {
+		String text = "";
+		Wait<WebDriver> wait = new WebDriverWait(driver,30);
+		element= wait.until(ExpectedConditions.visibilityOf(element));
+		text = element.getText();	
+		return text;
+	}
+	
+}
