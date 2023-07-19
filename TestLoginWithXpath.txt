@@ -1,0 +1,64 @@
+package com.login;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.hms.login.page.HMSLoginPage;
+import com.hms.login.page.HMSLoginPageWithXpath;
+import com.util.TestBaseClass;
+import com.util.TestDataReadingSamples;
+
+Run All
+public class TestLoginWithXpath {
+	WebDriver driver;
+	@BeforeTest
+	public void luanchHMSApp() {
+		try {
+			String projectLocation = System.getProperty("user.dir");
+			System.setProperty("webdriver.chrome.driver", projectLocation+"\\src\\test\\resources\\drivers\\"+ "chromedriver.exe");
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.addArguments("--remote-allow-origins=*");
+			driver = new ChromeDriver(chromeOptions);
+			
+			FileInputStream fis = new FileInputStream(projectLocation+"\\src\\test\\resources\\properties\\application-test.properties");
+			Properties prop = new Properties();
+			prop.load(fis);
+			
+			driver.get(prop.getProperty("url"));
+			driver.manage().window().maximize();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("file not found");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("launching application is failing");
+	}
+}
+
+	@Test
+	Run | Debug
+	public void testLoginWithFieldValidation() {
+		HMSLoginPageWithXpath hmsLoginPageWithXpath = new HMSLoginPageWithXpath(driver);
+		boolean actualFlag = hmsLoginPageWithXpath.hmsLoginFieldsVisibility();
+		Assert.assertEquals(actualFlag, true);
+
+	}
+
+}

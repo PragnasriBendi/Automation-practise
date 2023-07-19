@@ -1,0 +1,36 @@
+package com.hms.login.page;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class HMSLoginPageWithXpath {
+	
+	WebDriver driver;
+	
+	By usernameLabel = By.xpath("//label[text()='Username']");
+	By passwordLabel = By.xpath("//label[text()='Password']");
+	By usernameTextbox = By.xpath("//input[@name='Username']");
+	By passwordTextbox = By.xpath("//input[@name='password']");
+	By submit= By.xpath("//input[@name='submit']");
+	By reset = By.xpath("//input[@name='Username']");
+	
+	public HMSLoginPageWithXpath(WebDriver driver) {
+		this.driver = driver;
+		
+	}
+	
+	public boolean hmsLoginFieldsVisibility() {
+		boolean usernamelabelFlag=driver.findElement(usernameLabel).isDisplayed();
+		boolean passwordlabelFlag=driver.findElement(passwordLabel).isDisplayed();
+		boolean userNameTextboxFlag=driver.findElement(usernameTextbox).isDisplayed();
+		boolean passwordTextboxFlag=driver.findElement(passwordTextbox).isDisplayed();
+		boolean submitButtonFlag=driver.findElement(submit).isDisplayed();
+		boolean resetButtonFlag=driver.findElement(reset).isDisplayed();
+		
+		
+		return usernamelabelFlag&passwordlabelFlag&userNameTextboxFlag&passwordTextboxFlag&submitButtonFlag&resetButtonFlag;
+	}
+	
+	
+
+}
