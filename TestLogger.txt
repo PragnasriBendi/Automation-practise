@@ -1,0 +1,19 @@
+package com.test.log.verify;
+
+import org.apache.log4j.Logger;
+
+public class TestLogger {
+	
+	static Logger log = Logger.getLogger(TestLogger.class.getName());
+	
+	public static void main(String[] args) {
+		log.info("this is logger info message");
+		log.debug("this is debug info message");
+		log.error("this is error info message");
+		log.fatal("this is fatal info message");
+		log.trace("this is trace info message");
+		log.warn("this is warn info message");
+
+	}
+
+}

@@ -1,0 +1,71 @@
+package com.hms.login.page;
+
+import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+
+import com.util.page.GenericActions;
+
+public class HMSLoginPage {
+	
+	static Logger log = Logger.getLogger(HMSLoginPage.class.getName());
+
+	WebDriver driver;
+	By username = By.name("username");
+	By password = By.name("password");
+	By submit = By.name("submit");
+	By logout = By.linkText("Logout");
+
+	GenericActions genericActions ;
+
+	public HMSLoginPage(WebDriver localdriver) {
+		this.driver = localdriver;
+		genericActions = new GenericActions(driver);
+		
+		
+	}
+
+	public String hmsLogin(String user, String pwd) {
+		//str = driver.findElement(logout).getText();
+				//String str = "";
+		String text = "";
+		try {
+			log.info("enter username"+user);
+			
+			//driver.findElement(username).sendKeys(user);
+			genericActions.waitForElementToLoadAndSendKeysusingWebDriverWait(driver.findElement(username), user);
+			log.info("enter password");
+			//driver.findElement(password).sendKeys(pwd);
+			genericActions.waitForElementToLoadAndSendKeysusingWebDriverWait(driver.findElement(password), pwd);
+			//driver.findElement(submit).click();
+			genericActions.waitForElementToLoadAndClickusingWebDriverWait(driver.findElement(submit));
+			log.info("submit button is clicked");
+			
+			text = genericActions.waitForElementToLoadAndGetTextusingWebDriverWait(driver.findElement(logout));
+		} catch (Exception e) {
+			log.error("faling in login into the application");
+			
+		}
+		return text;
+	}
+	
+	public void logout() {
+		//driver.findElement(logout).click();
+		genericActions.waitForElementToLoadAndClickusingWebDriverWait(driver.findElement(logout));
+	}
+	
+	public String hmsLoginWithAlertHandling(String user,String pwd) {
+		String str = "";
+//		driver.findElement(username).sendKeys(user);
+//		driver.findElement(password).sendKeys(pwd);
+//		driver.findElement(submit).click();
+		genericActions.waitForElementToLoadAndSendKeysusingWebDriverWait(driver.findElement(username), user);
+		genericActions.waitForElementToLoadAndSendKeysusingWebDriverWait(driver.findElement(password), pwd);
+		genericActions.waitForElementToLoadAndClickusingWebDriverWait(driver.findElement(submit));
+		
+		driver.switchTo().alert().accept();
+		return str;
+	}
+	
+}
